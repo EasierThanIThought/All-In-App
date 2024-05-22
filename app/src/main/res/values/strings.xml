@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AllIn</string>
+
+    <string name="Plants">Plants</string>
+    <string name="Pets">Pets</string>
+    <string name="Decoration">Decoration</string>
+    <string name="Workshops">Workshops</string>
+
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="mail">workshopstudio@allin.com</string>
+    <string name="Home">Home</string>
+</resources>

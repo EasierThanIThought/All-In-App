@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:background="@drawable/nav_header"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/avatar"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mail"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/home"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Home"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/baseline_home_24"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/plants"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:drawableLeft="@drawable/baseline_flower_24"
+            android:drawablePadding="8dp"
+            android:text="@string/Plants"
+            android:textColor="@color/dark_grey"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/pets"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Pets"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/baseline_pets_24"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/decoration"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Decoration"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/baseline_chair_24"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/workshop"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Workshops"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/baseline_palette_24"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="12dp"/>
+    </LinearLayout>
+
+
+
+    
+
+</LinearLayout>
