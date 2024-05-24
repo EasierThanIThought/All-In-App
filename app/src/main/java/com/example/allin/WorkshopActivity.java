@@ -7,8 +7,12 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -26,7 +30,26 @@ public class WorkshopActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_workshop);
 
+        View rootView = findViewById(R.id.drawerLayout);
 
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.light_green));
+        window.setNavigationBarColor(getResources().getColor(R.color.white));
+
+        ViewCompat.setOnApplyWindowInsetsListener(rootView, new androidx.core.view.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+                int navigationBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+                layoutParams.topMargin = statusBarHeight;
+                layoutParams.bottomMargin = navigationBarHeight;
+                v.setLayoutParams(layoutParams);
+
+                return insets;
+            }
+        });
 
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
@@ -94,6 +117,7 @@ public class WorkshopActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+        activity.overridePendingTransition(0, 0);
         activity.finish();
     }
 

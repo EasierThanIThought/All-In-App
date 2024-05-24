@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -23,10 +29,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        View rootView = findViewById(R.id.drawerLayout);
+
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.light_green));
+        window.setNavigationBarColor(getResources().getColor(R.color.white));
+        ViewCompat.setOnApplyWindowInsetsListener(rootView, new androidx.core.view.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+                int navigationBarHeight = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
+
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+                layoutParams.topMargin = statusBarHeight;
+                layoutParams.bottomMargin = navigationBarHeight;
+                v.setLayoutParams(layoutParams);
+
+                return insets;
+            }
+        });
 
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
@@ -47,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recreate();
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -94,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+        activity.overridePendingTransition(0, 0);
         activity.finish();
     }
 
@@ -102,5 +130,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
 
 }
