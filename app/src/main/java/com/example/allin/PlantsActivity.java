@@ -10,18 +10,32 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.allin.models.DBHelper;
+import com.example.allin.models.Plant;
+import com.example.allin.models.PlantAdapter;
+
+import java.util.List;
+
 public class PlantsActivity extends AppCompatActivity {
 
 
+    private RecyclerView recyclerView;
+    private PlantAdapter plantAdapter;
+    private List<Plant> plantList;
+    private DBHelper dbHelper;
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
+
 
 
     @Override
@@ -29,6 +43,15 @@ public class PlantsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_plants);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // 2 columns
+
+        dbHelper = new DBHelper(this);
+        plantList = dbHelper.getAllPlants();
+
+        plantAdapter = new PlantAdapter(this, plantList);
+        recyclerView.setAdapter(plantAdapter);
 
         View rootView = findViewById(R.id.drawerLayout);
 
@@ -126,5 +149,6 @@ public class PlantsActivity extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
 
 }

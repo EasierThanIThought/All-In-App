@@ -2,12 +2,12 @@ package com.example.allin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,14 +18,18 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.allin.models.DBHelper;
+import com.example.allin.models.Plant;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
+    DBHelper dbHelper;
+
+
 
 
     @Override
@@ -53,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 return insets;
             }
         });
+
+        dbHelper = new DBHelper(this);
+
+        insertSampleData();
 
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
@@ -129,6 +137,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
+    }
+
+    private void insertSampleData() {
+        String plant1Uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.plant1).toString();
+        String plant2Uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.plant2).toString();
+// Sample Plant data
+        dbHelper.insertPlant(new Plant(plant1Uri, "Chlorophytum", "Loved one", "18-24°C", 4, 4, 1));
+        dbHelper.insertPlant(new Plant(plant2Uri, "Senecio rowleyanus", "String of Pearls", "18-24°C", 5, 1, 1));
     }
 
 
