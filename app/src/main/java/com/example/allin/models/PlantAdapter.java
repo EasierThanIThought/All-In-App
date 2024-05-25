@@ -1,7 +1,9 @@
 package com.example.allin.models;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.example.allin.R;
-
 import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
@@ -36,11 +35,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
     public void onBindViewHolder(@NonNull PlantViewHolder holder, int position) {
         Plant plant = plantList.get(position);
 
-        // Reconstructing the Uri object
-        Uri photoUri = Uri.parse(plant.getPhotoUri());
-
-        // Load image from URI using Glide or Picasso
-        Glide.with(context).load(photoUri).into(holder.photoImageView);
+        Bitmap imageBitmap = decodeBase64(plant.getImageData());
+        holder.photoImageView.setImageBitmap(imageBitmap);
 
         holder.nameTextView.setText(plant.getName());
         holder.descriptionTextView.setText(plant.getDescription());
@@ -63,5 +59,11 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
+    }
+
+    public static Bitmap decodeBase64(String image) {
+        if (image == null) return null;
+        byte[] decodedByte = Base64.decode(image, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 }

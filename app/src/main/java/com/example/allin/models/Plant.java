@@ -1,9 +1,8 @@
 package com.example.allin.models;
 
-
 public class Plant {
     private int id;
-    private String photoUri;
+    private String imageData;
     private String name;
     private String description;
     private String temperature;
@@ -13,8 +12,19 @@ public class Plant {
 
     public Plant() {}
 
-    public Plant(String PhotoUri, String name, String description, String temperature, int light, int water, int difficulty) {
-        this.photoUri = PhotoUri;
+    public Plant(int id, String  imageData, String name, String description, String temperature, int light, int water, int difficulty) {
+        this.id = id;
+        this.imageData = imageData;
+        this.name = name;
+        this.description = description;
+        this.temperature = temperature;
+        this.light = light;
+        this.water = water;
+        this.difficulty = difficulty;
+    }
+
+    public Plant(String  imageData, String name, String description, String temperature, int light, int water, int difficulty) {
+        this.imageData = imageData;
         this.name = name;
         this.description = description;
         this.temperature = temperature;
@@ -31,12 +41,12 @@ public class Plant {
         this.id = id;
     }
 
-    public String getPhotoUri() {
-        return photoUri;
+    public String getImageData() {
+        return imageData;
     }
 
-    public void setPhotoUri(String photoUri) {
-        this.photoUri = photoUri;
+    public void setImageData(String  imageData) {
+        this.imageData = imageData;
     }
 
     public String getName() {
