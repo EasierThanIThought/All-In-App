@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE plants (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, temperature TEXT, light INTEGER, water INTEGER, difficulty INTEGER)");
-        db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
+        db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
         db.execSQL("CREATE TABLE main_pictures (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, year INTEGER)");
     }
 
