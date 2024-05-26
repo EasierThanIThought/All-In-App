@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.allin.PlantInfoFragment;
 import com.example.allin.R;
 import java.util.List;
 
@@ -40,7 +43,22 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
 
         holder.nameTextView.setText(plant.getName());
         holder.descriptionTextView.setText(plant.getDescription());
-        // Add other bindings here
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlantInfoFragment dialogFragment = PlantInfoFragment.newInstance(
+                        plant.getImageData(),
+                        plant.getName(),
+                        plant.getDescription(),
+                        plant.getTemperature(),
+                        plant.getLight(),
+                        plant.getWater(),
+                        plant.getDifficulty()
+                );
+                dialogFragment.show(((FragmentActivity) context).getSupportFragmentManager(), "PlantInfoFragment");
+            }
+        });
     }
 
     @Override

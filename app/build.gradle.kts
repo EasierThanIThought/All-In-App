@@ -41,6 +41,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation ("androidx.fragment:fragment:1.3.6")
     runtimeOnly("com.google.android.material:material:1.3.0-alpha03")
     implementation ("com.github.bumptech.glide:glide:4.14.2@aar")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
