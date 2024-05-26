@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "allIn_db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,11 +19,13 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE plants (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, temperature TEXT, light INTEGER, water INTEGER, difficulty INTEGER)");
+        db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS plants");
+        db.execSQL("DROP TABLE IF EXISTS pets");
         onCreate(db);
     }
 
@@ -54,7 +56,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 plant.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
 
                 plant.setImageData(cursor.getString(cursor.getColumnIndexOrThrow("imageData")));
-                //  plant.setImageData(cursor.getBlob(cursor.getColumnIndex("imageData")));
 
                 plant.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
                 plant.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
@@ -69,5 +70,46 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return plantList;
+    }
+
+    public void insertPet(Pet pet) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("imageData", pet.getImageData());
+        values.put("name", pet.getName());
+        values.put("description", pet.getDescription());
+        values.put("fur", pet.getFur());
+        values.put("breed", pet.getBreed());
+        values.put("age", pet.getAge());
+        db.insert("pets", null, values);
+        db.close();
+    }
+
+    public List<Pet> getAllPets() {
+        List<Pet> petList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM pets";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Pet pet = new Pet();
+                pet.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+
+                pet.setImageData(cursor.getString(cursor.getColumnIndexOrThrow("imageData")));
+
+                pet.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                pet.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                pet.setFur(cursor.getString(cursor.getColumnIndexOrThrow("fur")));
+                pet.setBreed(cursor.getString(cursor.getColumnIndexOrThrow("breed")));
+                pet.setAge(cursor.getInt(cursor.getColumnIndexOrThrow("age")));
+                petList.add(pet);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return petList;
     }
 }

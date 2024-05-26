@@ -10,15 +10,28 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.allin.models.DBHelper;
+import com.example.allin.models.Pet;
+import com.example.allin.models.PetAdapter;
+
+import java.util.List;
+
 public class PetsActivity extends AppCompatActivity {
 
 
+    private RecyclerView recyclerView;
+    private PetAdapter petAdapter;
+    private List<Pet> petList;
+    private DBHelper dbHelper;
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
@@ -29,6 +42,15 @@ public class PetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pets);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // 2 columns
+
+        dbHelper = new DBHelper(this);
+        petList = dbHelper.getAllPets();
+
+        petAdapter = new PetAdapter(this, petList);
+        recyclerView.setAdapter(petAdapter);
 
         View rootView = findViewById(R.id.drawerLayout);
 

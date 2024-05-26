@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.allin.models.DBHelper;
+import com.example.allin.models.Pet;
 import com.example.allin.models.Plant;
 
 import java.io.ByteArrayOutputStream;
@@ -156,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.insertPlant(new Plant(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant3)), "Peperomia dolabriformis", "Prayer Pepper", "12-25°C", 5, 4, 1));
         dbHelper.insertPlant(new Plant(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant4)), "Callisia repens", "Creeping Inchplant", "12-25°C", 5, 1, 1));
         dbHelper.insertPlant(new Plant(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant5)), "Kalanchoe tomentosa", "Pussy Ears", "12-25°C", 5, 4, 1));
+
+        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet1)), "Peach", "Cat", "long-haired", "Colorpoint", 8));
+        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet2)), "Mouse", "Cat", "long-haired", "Maine Coon", 6));
+        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet3)), "Candy", "Cat", "long-haired", "Domestic", 2));
+        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet4)), "Felix", "Cat", "long-haired", "Domestic", 5));
 
     }
 
