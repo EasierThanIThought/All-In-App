@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Base64;
 import android.view.View;
@@ -22,10 +23,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.allin.models.DBHelper;
+import com.example.allin.models.MainPicture;
+import com.example.allin.models.MainPictureAdapter;
 import com.example.allin.models.Pet;
 import com.example.allin.models.Plant;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,9 +69,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        ViewPager2 viewPager2 = findViewById(R.id.viewPicture);
+        List<MainPicture> pictureList = new ArrayList<>();
+
+
+
         dbHelper = new DBHelper(this);
 
-        insertSampleData();
+
+
+        pictureList = dbHelper.getAllPictures();
+        MainPictureAdapter adapter = new MainPictureAdapter(this, pictureList);
+        viewPager2.setAdapter(adapter);
+
+        List<MainPicture> finalPictureList = pictureList;
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == finalPictureList.size() - 1) {
+                    viewPager2.setCurrentItem(0, false); // Reset to the first item
+                }
+            }
+        });
+
+
+        if (dbHelper.getAllPlants().isEmpty()) {
+            insertSampleData();
+        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
@@ -159,10 +190,14 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.insertPlant(new Plant(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant5)), "Kalanchoe tomentosa", "Pussy Ears", "12-25°C", 5, 4, 1));
 
         dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet1)), "Peach", "Cat", "long-haired", "Colorpoint", 8));
-        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet2)), "Mouse", "Cat", "long-haired", "Maine Coon", 6));
-        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet3)), "Candy", "Cat", "long-haired", "Domestic", 2));
-        dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet4)), "Felix", "Cat", "long-haired", "Domestic", 5));
+        dbHelper.insertPet(new Pet(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet2)), "Mouse", "Cat", "long-haired", "Maine Coon", 6));
+        dbHelper.insertPet(new Pet(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet3)), "Candy", "Cat", "long-haired", "Domestic", 2));
+        dbHelper.insertPet(new Pet(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet4)), "Felix", "Cat", "long-haired", "Domestic", 5));
 
+        dbHelper.insertMainPictures(new MainPicture(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture1)), "Art Workshop", 2023));
+        dbHelper.insertMainPictures(new MainPicture(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture2)), "Studio", 2024));
+        dbHelper.insertMainPictures(new MainPicture(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture3)), "Workshop", 2023));
+        dbHelper.insertMainPictures(new MainPicture(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture4)), "New Workshop", 2024));
     }
 
     private String encodeToBase64(Bitmap image) {

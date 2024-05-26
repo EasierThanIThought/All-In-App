@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "allIn_db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,13 +19,15 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE plants (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, temperature TEXT, light INTEGER, water INTEGER, difficulty INTEGER)");
-        db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
+        db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
+        db.execSQL("CREATE TABLE main_pictures (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, year INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS plants");
         db.execSQL("DROP TABLE IF EXISTS pets");
+        db.execSQL("DROP TABLE IF EXISTS main_pictures");
         onCreate(db);
     }
 
@@ -111,5 +113,38 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return petList;
+    }
+
+    public void insertMainPictures(MainPicture picture) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("imageData", picture.getImageData());
+        values.put("name", picture.getName());
+        values.put("year", picture.getYear());
+        db.insert("main_pictures", null, values);
+        db.close();
+    }
+
+    public List<MainPicture> getAllPictures() {
+        List<MainPicture> pictureList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM main_pictures";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                MainPicture picture = new MainPicture();
+                picture.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                picture.setImageData(cursor.getString(cursor.getColumnIndexOrThrow("imageData")));
+                picture.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                picture.setYear(cursor.getInt(cursor.getColumnIndexOrThrow("year")));
+                pictureList.add(picture);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return pictureList;
     }
 }
