@@ -1,5 +1,8 @@
 package com.example.allin;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -83,11 +86,8 @@ public class PlantInfoFragment extends DialogFragment {
             int water = getArguments().getInt(ARG_WATER);
             int difficulty = getArguments().getInt(ARG_DIFFICULTY);
 
-            // Load image using Glide with rounded corners
-            Glide.with(this)
-                    .load(photoPath)
-                    .apply(new RequestOptions().transform(new RoundedCorners(16))) // 16 is the radius of the corners
-                    .into(plantImageView);
+            Bitmap imageBitmap = decodeBase64(photoPath);
+            plantImageView.setImageBitmap(imageBitmap);
 
             nameTextView.setText(name);
             descriptionTextView.setText(description);
@@ -99,6 +99,12 @@ public class PlantInfoFragment extends DialogFragment {
 
         return view;
     }
+
+    private Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
     @Override
     public void onStart() {
         super.onStart();

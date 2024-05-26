@@ -1,6 +1,9 @@
 package com.example.allin;
 
 import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,11 +74,8 @@ public class PetInfoFragment extends DialogFragment {
             String breed = getArguments().getString(ARG_BREED);
             int age = getArguments().getInt(ARG_AGE);
 
-            // Load image using Glide with rounded corners
-            Glide.with(this)
-                    .load(photoPath)
-                    .apply(new RequestOptions().transform(new RoundedCorners(16)))
-                    .into(petImageView);
+            Bitmap imageBitmap = decodeBase64(photoPath);
+            petImageView.setImageBitmap(imageBitmap);
 
             nameTextView.setText(name);
             descriptionTextView.setText(description);
@@ -85,5 +85,10 @@ public class PetInfoFragment extends DialogFragment {
         }
 
         return view;
+    }
+
+    private Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }
