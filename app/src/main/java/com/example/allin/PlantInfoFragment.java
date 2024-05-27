@@ -12,11 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 
 
 public class PlantInfoFragment extends DialogFragment {
@@ -28,6 +25,7 @@ public class PlantInfoFragment extends DialogFragment {
     private TextView lightTextView;
     private TextView waterTextView;
     private TextView difficultyTextView;
+    private RatingBar difficultyRatingBar;
 
     private static final String ARG_IMAGE_DATA = "imageData";
     private static final String ARG_NAME = "name";
@@ -55,15 +53,6 @@ public class PlantInfoFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -76,6 +65,7 @@ public class PlantInfoFragment extends DialogFragment {
         lightTextView = view.findViewById(R.id.lightTextView);
         waterTextView = view.findViewById(R.id.waterTextView);
         difficultyTextView = view.findViewById(R.id.difficultyTextView);
+        difficultyRatingBar = view.findViewById(R.id.difficultyRatingBar);
 
         if (getArguments() != null) {
             String photoPath = getArguments().getString(ARG_IMAGE_DATA);
@@ -94,7 +84,8 @@ public class PlantInfoFragment extends DialogFragment {
             temperatureTextView.setText("Temperature: " + temperature);
             lightTextView.setText("Light: " + light);
             waterTextView.setText("Water: " + water);
-            difficultyTextView.setText("Difficulty: " + difficulty);
+            // difficultyTextView.setText("Difficulty: " + difficulty);
+            difficultyRatingBar.setRating(difficulty);
         }
 
         return view;
