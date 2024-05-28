@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Base64;
 import android.view.View;
@@ -26,7 +27,11 @@ import android.widget.VideoView;
 
 import com.example.allin.models.DBHelper;
 import com.example.allin.models.Decoration;
+import com.example.allin.models.DecorationAdapter;
+import com.example.allin.models.MainPicture;
+import com.example.allin.models.MainPictureAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DecorationActivity extends AppCompatActivity {
@@ -47,29 +52,50 @@ public class DecorationActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_decoration);
 
+//        dbHelper = new DBHelper(this);
+//        decorationName = findViewById(R.id.decorationName);
+//        decorationDescription = findViewById(R.id.decorationDescription);
+//        photoImageView = findViewById(R.id.photoImageView);
+//        videoView = findViewById(R.id.videoView);
+//        List<Decoration> decorations = dbHelper.getAllDecorations();
+//        if (!decorations.isEmpty()) {
+//            Decoration decoration = decorations.get(0);
+//
+//            decorationName.setText(decoration.getName());
+//            decorationDescription.setText(decoration.getDescription());
+//
+//
+//            Bitmap imageBitmap = decodeBase64(decoration.getImageData());
+//            photoImageView.setImageBitmap(imageBitmap);
+//
+//
+//            Uri videoUri = Uri.parse(decoration.getVideoData());
+//            videoView.setVideoURI(videoUri);
+//            videoView.setMediaController(new MediaController(this));
+//            videoView.requestFocus();
+//            videoView.start();
+//        }
+
+        ViewPager2 viewPager2 = findViewById(R.id.viewPager);
+        List<Decoration> decorationList = new ArrayList<>();
+
         dbHelper = new DBHelper(this);
-        decorationName = findViewById(R.id.decorationName);
-        decorationDescription = findViewById(R.id.decorationDescription);
-        photoImageView = findViewById(R.id.photoImageView);
-        videoView = findViewById(R.id.videoView);
-        List<Decoration> decorations = dbHelper.getAllDecorations();
-        if (!decorations.isEmpty()) {
-            Decoration decoration = decorations.get(0);
 
-            decorationName.setText(decoration.getName());
-            decorationDescription.setText(decoration.getDescription());
+        decorationList = dbHelper.getAllDecorations();
+        DecorationAdapter adapter = new DecorationAdapter(this, decorationList);
+        viewPager2.setAdapter(adapter);
 
+        List<Decoration> finalDecorationList = decorationList;
 
-            Bitmap imageBitmap = decodeBase64(decoration.getImageData());
-            photoImageView.setImageBitmap(imageBitmap);
-
-
-            Uri videoUri = Uri.parse(decoration.getVideoData());
-            videoView.setVideoURI(videoUri);
-            videoView.setMediaController(new MediaController(this));
-            videoView.requestFocus();
-            videoView.start();
-        }
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == finalDecorationList.size()) {
+                    viewPager2.setCurrentItem(0, true);
+                }
+            }
+        });
 
 
         View rootView = findViewById(R.id.drawerLayout);

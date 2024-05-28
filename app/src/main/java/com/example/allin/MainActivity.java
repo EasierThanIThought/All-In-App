@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (position == finalPictureList.size() - 1) {
-                    viewPager2.setCurrentItem(0, false); // Reset to the first item
+                if (position == finalPictureList.size()) {
+                    viewPager2.setCurrentItem(0, true); // Reset to the first item
                 }
             }
         });
@@ -226,7 +226,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertSampleDecorations() {
-        dbHelper.insertDecoration(new Decoration(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor1)), "Vase Abra Cadabra", "Glass", "Unique hand made vase", 40, "android.resource://" + getPackageName() + "/" + R.raw.vase_video));
+        dbHelper.insertDecoration(new Decoration(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor1)), "Abra Kadabra", "Glass", "Unique hand made vase", 40, "android.resource://" + getPackageName() + "/" + R.raw.decor1_video));
+        dbHelper.insertDecoration(new Decoration(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor2)), "Colorful Life", "Textile", "Soft carpet", 80, "android.resource://" + getPackageName() + "/" + R.raw.decor2_video));
+        dbHelper.insertDecoration(new Decoration(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor3)), "Strict or Not", "Ceramics", "White hand made vase", 20, "android.resource://" + getPackageName() + "/" + R.raw.decor3_video));
     }
 
 

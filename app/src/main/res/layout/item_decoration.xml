@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <TableRow>
+
+        <TextView
+            android:id="@+id/decorationName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/Decoration"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/photoImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:layout_marginLeft="4dp">
+
+            <TextView
+                android:id="@+id/decorationInfo"
+                android:gravity="start"
+                android:textSize="12sp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"/>
+
+        </LinearLayout>
+
+
+
+    </TableRow>
+
+    <TableRow>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+        </LinearLayout>
+
+    </TableRow>
+
+
+
+    <TableRow>
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+
+    </TableRow>
+
+</TableLayout>
