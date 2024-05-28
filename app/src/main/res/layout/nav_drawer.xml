@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:gravity="bottom"
         android:padding="16dp"
-        android:background="@color/light_green"
+        android:background="@color/primary_variant_light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mail"
-            android:textColor="@color/white"
+            android:textColor="@color/background_light"
             android:textStyle="bold"
             android:textSize="14sp"
             android:layout_marginBottom="16dp"/>
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Home"
-            android:textColor="@color/light_brown"
+            android:textColor="@color/secondary_light"
             android:textStyle="bold"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_home_24"
@@ -72,7 +72,7 @@
             android:drawableLeft="@drawable/baseline_flower_24"
             android:drawablePadding="8dp"
             android:text="@string/Plants"
-            android:textColor="@color/dark_green"
+            android:textColor="@color/primary_light"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Pets"
-            android:textColor="@color/dark_green"
+            android:textColor="@color/primary_light"
             android:textStyle="bold"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_pets_24"
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Decoration"
-            android:textColor="@color/dark_green"
+            android:textColor="@color/primary_light"
             android:textStyle="bold"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_chair_24"
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Workshops"
-            android:textColor="@color/dark_green"
+            android:textColor="@color/primary_light"
             android:textStyle="bold"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_palette_24"

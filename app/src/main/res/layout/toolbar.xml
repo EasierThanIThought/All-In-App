@@ -7,7 +7,7 @@
     android:paddingTop="40dp"
     android:padding="24dp"
     android:id="@+id/toolbar"
-    android:background="@color/light_green"
+    android:background="@color/primary_variant_light"
     android:gravity="center_vertical">
 
 
@@ -25,6 +25,6 @@
         android:text="All In"
         android:textSize="20sp"
         android:layout_marginStart="12dp"
-        android:textColor="@color/grey" />
+        android:textColor="@color/text_primary_light" />
 
 </LinearLayout>

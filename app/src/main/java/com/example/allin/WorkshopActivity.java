@@ -33,8 +33,8 @@ public class WorkshopActivity extends AppCompatActivity {
         View rootView = findViewById(R.id.drawerLayout);
 
         Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.light_green));
-        window.setNavigationBarColor(getResources().getColor(R.color.white));
+        window.setStatusBarColor(getResources().getColor(R.color.primary_variant_light));
+        window.setNavigationBarColor(getResources().getColor(R.color.background_light));
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView, new androidx.core.view.OnApplyWindowInsetsListener() {
             @Override

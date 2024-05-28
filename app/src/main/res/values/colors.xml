@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">#FBF7EB</color>
-    <color name="light_brown">#97612A</color>
-    <color name="dark_green">#8E954C</color>
-    <color name="light_green">#C1BB82</color>
-    <color name="grey">#39363F</color>
-
+    <color name="background_light">#FBF7EB</color>
+    <color name="secondary_light">#97612A</color>
     <color name="primary_light">#8E954C</color>
     <color name="primary_variant_light">#C1BB82</color>
-    <color name="secondary_light">#97612A</color>
-    <color name="background_light">#FBF7EB</color>
-    <color name="surface_light">#FFFFFF</color>
     <color name="text_primary_light">#39363F</color>
+
+    <color name="surface_light">#FFFFFF</color>
     <color name="text_secondary_light">#676767</color>
 </resources>
