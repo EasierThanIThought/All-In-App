@@ -2,6 +2,9 @@ package com.example.allin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -10,11 +13,21 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.TextView;
+import android.widget.VideoView;
+
+import com.example.allin.models.DBHelper;
+import com.example.allin.models.Decoration;
+
+import java.util.List;
 
 public class DecorationActivity extends AppCompatActivity {
 
@@ -22,6 +35,10 @@ public class DecorationActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
+    private DBHelper dbHelper;
+    private TextView decorationName, decorationDescription;
+    private ImageView photoImageView;
+    private VideoView videoView;
 
 
     @Override
@@ -30,11 +47,36 @@ public class DecorationActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_decoration);
 
+        dbHelper = new DBHelper(this);
+        decorationName = findViewById(R.id.decorationName);
+        decorationDescription = findViewById(R.id.decorationDescription);
+        photoImageView = findViewById(R.id.photoImageView);
+        videoView = findViewById(R.id.videoView);
+        List<Decoration> decorations = dbHelper.getAllDecorations();
+        if (!decorations.isEmpty()) {
+            Decoration decoration = decorations.get(0);
+
+            decorationName.setText(decoration.getName());
+            decorationDescription.setText(decoration.getDescription());
+
+
+            Bitmap imageBitmap = decodeBase64(decoration.getImageData());
+            photoImageView.setImageBitmap(imageBitmap);
+
+
+            Uri videoUri = Uri.parse(decoration.getVideoData());
+            videoView.setVideoURI(videoUri);
+            videoView.setMediaController(new MediaController(this));
+            videoView.requestFocus();
+            videoView.start();
+        }
+
+
         View rootView = findViewById(R.id.drawerLayout);
 
         Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.light_green));
-        window.setNavigationBarColor(getResources().getColor(R.color.white));
+        window.setStatusBarColor(getResources().getColor(R.color.primary_variant_light));
+        window.setNavigationBarColor(getResources().getColor(R.color.background_light));
 
         ViewCompat.setOnApplyWindowInsetsListener(rootView, new androidx.core.view.OnApplyWindowInsetsListener() {
             @Override
@@ -125,6 +167,12 @@ public class DecorationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
+    }
+
+    public static Bitmap decodeBase64(String image) {
+        if (image == null) return null;
+        byte[] decodedByte = Base64.decode(image, 0);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
 }

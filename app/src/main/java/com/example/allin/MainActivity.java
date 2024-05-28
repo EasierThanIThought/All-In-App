@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.allin.models.DBHelper;
+import com.example.allin.models.Decoration;
 import com.example.allin.models.MainPicture;
 import com.example.allin.models.MainPictureAdapter;
 import com.example.allin.models.Pet;
@@ -63,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         View rootView = findViewById(R.id.drawerLayout);
 
         Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.light_green));
-        window.setNavigationBarColor(getResources().getColor(R.color.white));
+        window.setStatusBarColor(getResources().getColor(R.color.primary_variant_light));
+        window.setNavigationBarColor(getResources().getColor(R.color.background_light));
         ViewCompat.setOnApplyWindowInsetsListener(rootView, new androidx.core.view.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
@@ -107,7 +108,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (dbHelper.getAllPlants().isEmpty()) {
-            insertSampleData();
+            insertSamplePlants();
+        }
+        if (dbHelper.getAllPets().isEmpty()) {
+            insertSamplePets();
+        }
+        if (dbHelper.getAllPictures().isEmpty()) {
+            insertSamplePictures();
+        }
+        if (dbHelper.getAllDecorations().isEmpty()) {
+            insertSampleDecorations();
         }
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -187,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 
-    private void insertSampleData() {
+    private void insertSamplePlants() {
         Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.plant1);
         String plant1Base64 = encodeToBase64(bitmap1);
 
@@ -199,17 +209,26 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.insertPlant(new Plant(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant3)), "Peperomia dolabriformis", "Prayer Pepper", "12-25°C", 5, 4, 1));
         dbHelper.insertPlant(new Plant(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant4)), "Callisia repens", "Creeping Inchplant", "12-25°C", 5, 1, 1));
         dbHelper.insertPlant(new Plant(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant5)), "Kalanchoe tomentosa", "Pussy Ears", "12-25°C", 5, 4, 1));
+    }
 
+    private void insertSamplePets() {
         dbHelper.insertPet(new Pet(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet1)), "Peach", "Cat", "long-haired", "Colorpoint", 8));
         dbHelper.insertPet(new Pet(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet2)), "Mouse", "Cat", "long-haired", "Maine Coon", 6));
         dbHelper.insertPet(new Pet(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet3)), "Candy", "Cat", "long-haired", "Domestic", 2));
         dbHelper.insertPet(new Pet(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.pet4)), "Felix", "Cat", "long-haired", "Domestic", 5));
+    }
 
+    private void insertSamplePictures() {
         dbHelper.insertMainPictures(new MainPicture(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture1)), "Art Workshop", 2023));
         dbHelper.insertMainPictures(new MainPicture(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture2)), "Studio", 2024));
         dbHelper.insertMainPictures(new MainPicture(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture3)), "Workshop", 2023));
         dbHelper.insertMainPictures(new MainPicture(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.picture4)), "New Workshop", 2024));
     }
+
+    private void insertSampleDecorations() {
+        dbHelper.insertDecoration(new Decoration(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor1)), "Vase Abra Cadabra", "Glass", "Unique hand made vase", 40, "android.resource://" + getPackageName() + "/" + R.raw.vase_video));
+    }
+
 
     private String encodeToBase64(Bitmap image) {
         if (image == null) return null;

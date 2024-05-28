@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "allIn_db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE plants (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, temperature TEXT, light INTEGER, water INTEGER, difficulty INTEGER)");
         db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
         db.execSQL("CREATE TABLE main_pictures (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, year INTEGER)");
+        db.execSQL("CREATE TABLE decorations (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, material TEXT, description TEXT, price INTEGER, videoData TEXT)");
     }
 
     @Override
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS plants");
         db.execSQL("DROP TABLE IF EXISTS pets");
         db.execSQL("DROP TABLE IF EXISTS main_pictures");
+        db.execSQL("DROP TABLE IF EXISTS decorations");
         onCreate(db);
     }
 
@@ -146,5 +148,45 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return pictureList;
+    }
+
+    public void insertDecoration(Decoration decoration) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("imageData", decoration.getImageData());
+        values.put("name", decoration.getName());
+        values.put("material", decoration.getMaterial());
+        values.put("description", decoration.getDescription());
+        values.put("price", decoration.getPrice());
+        values.put("videoData", decoration.getVideoData());
+
+        db.insert("decorations", null, values);
+        db.close();
+    }
+
+    public List<Decoration> getAllDecorations() {
+        List<Decoration> decorationList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM decorations";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Decoration decoration = new Decoration();
+                decoration.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                decoration.setImageData(cursor.getString(cursor.getColumnIndexOrThrow("imageData")));
+                decoration.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                decoration.setMaterial(cursor.getString(cursor.getColumnIndexOrThrow("material")));
+                decoration.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                decoration.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("price")));
+                decoration.setVideoData(cursor.getString(cursor.getColumnIndexOrThrow("videoData")));
+                decorationList.add(decoration);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return decorationList;
     }
 }
