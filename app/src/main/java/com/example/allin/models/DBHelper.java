@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "allIn_db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE pets (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, description TEXT, fur TEXT, breed TEXT, age INTEGER)");
         db.execSQL("CREATE TABLE main_pictures (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT, year INTEGER)");
         db.execSQL("CREATE TABLE decorations (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, material TEXT, description TEXT, price INTEGER, videoData TEXT)");
+        db.execSQL("CREATE TABLE workshops (id INTEGER PRIMARY KEY, imageData TEXT, name TEXT UNIQUE, materials TEXT, description TEXT, time INTEGER, price INTEGER, videoData TEXT)");
     }
 
     @Override
@@ -30,6 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS pets");
         db.execSQL("DROP TABLE IF EXISTS main_pictures");
         db.execSQL("DROP TABLE IF EXISTS decorations");
+        db.execSQL("DROP TABLE IF EXISTS workshops");
         onCreate(db);
     }
 
@@ -188,5 +190,47 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return decorationList;
+    }
+
+    public void insertWorkshop(Workshop workshop) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("imageData", workshop.getImageData());
+        values.put("name", workshop.getName());
+        values.put("materials", workshop.getMaterials());
+        values.put("description", workshop.getDescription());
+        values.put("time", workshop.getTime());
+        values.put("price", workshop.getPrice());
+        values.put("videoData", workshop.getVideoData());
+
+        db.insert("workshops", null, values);
+        db.close();
+    }
+
+    public List<Workshop> getAllWorkshops() {
+        List<Workshop> workshopList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM workshops";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Workshop workshop = new Workshop();
+                workshop.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                workshop.setImageData(cursor.getString(cursor.getColumnIndexOrThrow("imageData")));
+                workshop.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                workshop.setMaterials(cursor.getString(cursor.getColumnIndexOrThrow("materials")));
+                workshop.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                workshop.setTime(cursor.getInt(cursor.getColumnIndexOrThrow("time")));
+                workshop.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("price")));
+                workshop.setVideoData(cursor.getString(cursor.getColumnIndexOrThrow("videoData")));
+                workshopList.add(workshop);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return workshopList;
     }
 }

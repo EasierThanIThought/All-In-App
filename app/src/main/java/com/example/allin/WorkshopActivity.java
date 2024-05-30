@@ -10,15 +10,28 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.allin.models.DBHelper;
+import com.example.allin.models.Workshop;
+import com.example.allin.models.WorkshopAdapter;
+
+import java.util.List;
+
 public class WorkshopActivity extends AppCompatActivity {
 
 
+    private RecyclerView recyclerView;
+    private WorkshopAdapter workshopAdapter;
+    private List<Workshop> workshopList;
+    private DBHelper dbHelper;
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
@@ -29,6 +42,16 @@ public class WorkshopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_workshop);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        dbHelper = new DBHelper(this);
+        workshopList = dbHelper.getAllWorkshops();
+
+        workshopAdapter = new WorkshopAdapter(this, workshopList);
+        recyclerView.setAdapter(workshopAdapter);
+
 
         View rootView = findViewById(R.id.drawerLayout);
 

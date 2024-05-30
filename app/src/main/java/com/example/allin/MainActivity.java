@@ -29,6 +29,7 @@ import com.example.allin.models.MainPicture;
 import com.example.allin.models.MainPictureAdapter;
 import com.example.allin.models.Pet;
 import com.example.allin.models.Plant;
+import com.example.allin.models.Workshop;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -89,7 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-
+        if (dbHelper.getAllPlants().isEmpty()) {
+            insertSamplePlants();
+        }
+        if (dbHelper.getAllPets().isEmpty()) {
+            insertSamplePets();
+        }
+        if (dbHelper.getAllPictures().isEmpty()) {
+            insertSamplePictures();
+        }
+        if (dbHelper.getAllDecorations().isEmpty()) {
+            insertSampleDecorations();
+        }
+        if (dbHelper.getAllWorkshops().isEmpty()) {
+            insertSampleWorkshops();
+        }
 
         pictureList = dbHelper.getAllPictures();
         MainPictureAdapter adapter = new MainPictureAdapter(this, pictureList);
@@ -105,20 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        if (dbHelper.getAllPlants().isEmpty()) {
-            insertSamplePlants();
-        }
-        if (dbHelper.getAllPets().isEmpty()) {
-            insertSamplePets();
-        }
-        if (dbHelper.getAllPictures().isEmpty()) {
-            insertSamplePictures();
-        }
-        if (dbHelper.getAllDecorations().isEmpty()) {
-            insertSampleDecorations();
-        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
         menu = findViewById(R.id.menu);
@@ -227,6 +228,37 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.insertDecoration(new Decoration(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor5)), "Massive", "Ceramics", "Square hand made vase", 50, "android.resource://" + getPackageName() + "/" + R.raw.decor5_video));
     }
 
+    private void insertSampleWorkshops() {
+        dbHelper.insertWorkshop(new Workshop(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop1)), "Epoxy Resin Workshop", "Epoxy resin\n" +
+                "Hardener\n" +
+                "Mixing sticks\n" +
+                "Molds\n" +
+                "Pigments or dyes\n" +
+                "Glitter or other embellishments\n" +
+                "Safety gloves\n" +
+                "Safety glasses\n" +
+                "Respirator", "Epoxy resin is a versatile material that can be used to create a variety of projects, such as jewelry, home décor, and even furniture. In this workshop, participants will learn the basics of working with epoxy resin, including how to mix and pour the resin, add color and pigments, and avoid common mistakes.", 3, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop1_video));
+        dbHelper.insertWorkshop(new Workshop(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop2)), "Kids' Painting Workshop", "Acrylic paint or tempera paint\n" +
+                "Paint brushes\n" +
+                "Water containers\n" +
+                "Paper\n" +
+                "Aprons or old clothes", "Painting is a great way for kids to express their creativity and have fun. In this workshop, kids will learn different painting techniques, such as how to use brushes, mix colors, and create different textures. They will also get to take home their own painted masterpiece.", 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop2_video));
+        dbHelper.insertWorkshop(new Workshop(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop3)), "Kids' Appliqué Workshop", "Construction paper or fabric\n" +
+                "Scissors\n" +
+                "Glue\n" +
+                "Markers or crayons\n" +
+                "Doilies or other embellishments", "Appliqué is a fun and easy way for kids to create art. In this workshop, kids will learn how to cut out shapes from paper or fabric and glue them onto a background to create a picture. They will also get to use their own creativity to come up with their own unique designs.", 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop3_video));
+        dbHelper.insertWorkshop(new Workshop(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop4)), "Adult Painting Workshop", "Acrylic paint, watercolor paint, or oil paint\n" +
+                "Paint brushes\n" +
+                "Canvas or paper\n" +
+                "Easel (optional)\n" +
+                "Apron or old clothes", "Whether you're a beginner or experienced painter, this workshop is a great way to improve your skills and learn new techniques. In this workshop, you will learn about different painting mediums, such as acrylics, watercolors, and oils. You will also get to work on your own painting project.", 2, 60, "android.resource://" + getPackageName() + "/" + R.raw.workshop4_video));
+        dbHelper.insertWorkshop(new Workshop(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop5)), "Clay Workshop", "Clay\n" +
+                "Water\n" +
+                "Pottery tools (optional)\n" +
+                "Kiln (optional)", "Working with clay is a great way to get your hands dirty and create something beautiful. In this workshop, you will learn the basics of hand-building with clay, such as how to coil, pinch, and slab build. You will also get to create your own unique piece of pottery.", 2, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop5_video));
+
+    }
 
     private String encodeToBase64(Bitmap image) {
         if (image == null) return null;
