@@ -198,14 +198,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertSamplePlants() {
-        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.plant1);
-        String plant1Base64 = encodeToBase64(bitmap1);
-
-        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.plant2);
-        String plant2Base64 = encodeToBase64(bitmap2);
-
-        dbHelper.insertPlant(new Plant(1, plant1Base64, "Chlorophytum", "Loved one", "18-24°C", 4, 4, 1));
-        dbHelper.insertPlant(new Plant(2, plant2Base64, "Senecio stapeliaeformis", "Pickle Plant", "12-25°C", 5, 1, 1));
+        dbHelper.insertPlant(new Plant(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant1)), "Chlorophytum", "Loved one", "18-24°C", 4, 4, 1));
+        dbHelper.insertPlant(new Plant(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant2)), "Senecio stapeliaeformis", "Pickle Plant", "12-25°C", 5, 1, 1));
         dbHelper.insertPlant(new Plant(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant3)), "Peperomia dolabriformis", "Prayer Pepper", "12-25°C", 5, 4, 1));
         dbHelper.insertPlant(new Plant(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant4)), "Callisia repens", "Creeping Inchplant", "12-25°C", 5, 1, 1));
         dbHelper.insertPlant(new Plant(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.plant5)), "Kalanchoe tomentosa", "Pussy Ears", "12-25°C", 5, 4, 1));
@@ -229,19 +223,36 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.insertDecoration(new Decoration(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor1)), "Abra Kadabra", "Glass", "Unique hand made vase", 40, "android.resource://" + getPackageName() + "/" + R.raw.decor1_video));
         dbHelper.insertDecoration(new Decoration(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor2)), "Colorful Life", "Textile", "Soft carpet", 80, "android.resource://" + getPackageName() + "/" + R.raw.decor2_video));
         dbHelper.insertDecoration(new Decoration(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor3)), "Strict or Not", "Ceramics", "White hand made vase", 20, "android.resource://" + getPackageName() + "/" + R.raw.decor3_video));
+        dbHelper.insertDecoration(new Decoration(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor4)), "Not so fragile", "Glass", "Looks fragile but very durable and elegant vase", 70, "android.resource://" + getPackageName() + "/" + R.raw.decor4_video));
+        dbHelper.insertDecoration(new Decoration(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.decor5)), "Massive", "Ceramics", "Square hand made vase", 50, "android.resource://" + getPackageName() + "/" + R.raw.decor5_video));
     }
 
 
     private String encodeToBase64(Bitmap image) {
         if (image == null) return null;
 
-        Bitmap resizedImage = Bitmap.createScaledBitmap(image, 800, 800, true);
+        Bitmap resizedImage;
+        int imageWidth = image.getWidth();
+        int imageHeight = image.getHeight();
+
+        if (imageWidth == imageHeight) {
+            resizedImage = Bitmap.createScaledBitmap(image, 800, 800, true);
+        }
+        else if (imageWidth > imageHeight) {
+            imageHeight = (imageHeight * 800) / imageWidth;
+            imageWidth = 800;
+            resizedImage = Bitmap.createScaledBitmap(image, imageWidth, imageHeight, true);
+        }
+        else {
+            imageWidth = (imageWidth * 800) / imageHeight;
+            imageHeight = 800;
+            resizedImage = Bitmap.createScaledBitmap(image, imageWidth, imageHeight, true);
+        }
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         resizedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
-
 
 }
