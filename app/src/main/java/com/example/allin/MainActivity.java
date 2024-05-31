@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ import com.example.allin.models.Workshop;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.res.Configuration;
@@ -44,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView menu;
     LinearLayout home, plants, pets, decor, workshop;
     DBHelper dbHelper;
-
-
 
 
     @Override
@@ -229,34 +230,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertSampleWorkshops() {
-        dbHelper.insertWorkshop(new Workshop(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop1)), "Epoxy Resin Workshop", "Epoxy resin\n" +
-                "Hardener\n" +
-                "Mixing sticks\n" +
-                "Molds\n" +
-                "Pigments or dyes\n" +
-                "Glitter or other embellishments\n" +
-                "Safety gloves\n" +
-                "Safety glasses\n" +
-                "Respirator", "Epoxy resin is a versatile material that can be used to create a variety of projects, such as jewelry, home décor, and even furniture. In this workshop, participants will learn the basics of working with epoxy resin, including how to mix and pour the resin, add color and pigments, and avoid common mistakes.", 3, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop1_video));
-        dbHelper.insertWorkshop(new Workshop(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop2)), "Kids' Painting Workshop", "Acrylic paint or tempera paint\n" +
-                "Paint brushes\n" +
-                "Water containers\n" +
-                "Paper\n" +
-                "Aprons or old clothes", "Painting is a great way for kids to express their creativity and have fun. In this workshop, kids will learn different painting techniques, such as how to use brushes, mix colors, and create different textures. They will also get to take home their own painted masterpiece.", 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop2_video));
-        dbHelper.insertWorkshop(new Workshop(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop3)), "Kids' Appliqué Workshop", "Construction paper or fabric\n" +
-                "Scissors\n" +
-                "Glue\n" +
-                "Markers or crayons\n" +
-                "Doilies or other embellishments", "Appliqué is a fun and easy way for kids to create art. In this workshop, kids will learn how to cut out shapes from paper or fabric and glue them onto a background to create a picture. They will also get to use their own creativity to come up with their own unique designs.", 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop3_video));
-        dbHelper.insertWorkshop(new Workshop(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop4)), "Adult Painting Workshop", "Acrylic paint, watercolor paint, or oil paint\n" +
-                "Paint brushes\n" +
-                "Canvas or paper\n" +
-                "Easel (optional)\n" +
-                "Apron or old clothes", "Whether you're a beginner or experienced painter, this workshop is a great way to improve your skills and learn new techniques. In this workshop, you will learn about different painting mediums, such as acrylics, watercolors, and oils. You will also get to work on your own painting project.", 2, 60, "android.resource://" + getPackageName() + "/" + R.raw.workshop4_video));
-        dbHelper.insertWorkshop(new Workshop(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop5)), "Clay Workshop", "Clay\n" +
-                "Water\n" +
-                "Pottery tools (optional)\n" +
-                "Kiln (optional)", "Working with clay is a great way to get your hands dirty and create something beautiful. In this workshop, you will learn the basics of hand-building with clay, such as how to coil, pinch, and slab build. You will also get to create your own unique piece of pottery.", 2, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop5_video));
+        dbHelper.insertWorkshop(new Workshop(1, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop1)), "Epoxy Resin Workshop", getResources().getString(R.string.w1_materials), getResources().getString(R.string.w1_description), 3, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop1_video));
+        dbHelper.insertWorkshop(new Workshop(2, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop2)), "Kids' Painting Workshop", getResources().getString(R.string.w2_materials), getResources().getString(R.string.w2_description), 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop2_video));
+        dbHelper.insertWorkshop(new Workshop(3, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop3)), "Kids' Appliqué Workshop", getResources().getString(R.string.w3_materials), getResources().getString(R.string.w3_description), 1, 20, "android.resource://" + getPackageName() + "/" + R.raw.workshop3_video));
+        dbHelper.insertWorkshop(new Workshop(4, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop4)), "Adult Painting Workshop", getResources().getString(R.string.w4_materials), getResources().getString(R.string.w4_description), 2, 60, "android.resource://" + getPackageName() + "/" + R.raw.workshop4_video));
+        dbHelper.insertWorkshop(new Workshop(5, encodeToBase64(BitmapFactory.decodeResource(getResources(), R.drawable.workshop5)), "Clay Workshop", getResources().getString(R.string.w5_materials), getResources().getString(R.string.w5_description), 2, 80, "android.resource://" + getPackageName() + "/" + R.raw.workshop5_video));
 
     }
 

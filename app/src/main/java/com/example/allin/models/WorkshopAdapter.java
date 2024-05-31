@@ -3,11 +3,14 @@ package com.example.allin.models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -40,8 +43,17 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.Worksh
     public void onBindViewHolder(@NonNull WorkshopAdapter.WorkshopViewHolder holder, int position) {
         Workshop workshop = workshopList.get(position);
 
-        Bitmap imageBitmap = decodeBase64(workshop.getImageData());
-        holder.photoImageView.setImageBitmap(imageBitmap);
+        Uri videoUri = Uri.parse(workshop.getVideoData());
+        holder.videoView.setVideoURI(videoUri);
+        holder.videoView.setMediaController(null);
+        holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+        holder.videoView.requestFocus();
+        holder.videoView.start();
 
         holder.nameTextView.setText(workshop.getName());
         holder.descriptionTextView.setText(workshop.getDescription());
@@ -68,13 +80,13 @@ public class WorkshopAdapter extends RecyclerView.Adapter<WorkshopAdapter.Worksh
     }
 
     public static class WorkshopViewHolder extends RecyclerView.ViewHolder {
-        ImageView photoImageView;
+        VideoView videoView;
         TextView nameTextView;
         TextView descriptionTextView;
 
         public WorkshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            photoImageView = itemView.findViewById(R.id.photoImageView);
+            videoView = itemView.findViewById(R.id.videoView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }

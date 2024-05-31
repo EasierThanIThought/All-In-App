@@ -10,7 +10,33 @@
     <string name="nav_close">Close</string>
     <string name="mail">workshopstudio@allin.com</string>
     <string name="Home">Home</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="w1_materials">Epoxy resin\nHardener\nMixing sticks\nMolds\nPigments and dyes\nGlitter and other embellishments\nSafety gloves\nSafety glasses\nRespirator</string>
+    <string name="w1_description">Epoxy resin is a versatile material that can be used to create a variety of projects,
+        such as jewelry, home décor, and even furniture. In this workshop, participants will learn the basics of working with epoxy resin,
+        including how to mix and pour the resin, add color and pigments, and avoid common mistakes.</string>
+
+    <string name="w2_materials">Acrylic paint or tempera paint\nPaint brushes\nWater containers\nPaper\nAprons or old clothes</string>
+    <string name="w2_description">Painting is a great way for kids to express their creativity and have fun.
+        In this workshop, kids will learn different painting techniques, such as how to use brushes, mix colors, and create different textures.
+        They will also get to take home their own painted masterpiece.</string>
+
+    <string name="w3_materials">Construction paper or fabric\nScissors\nGlue\nMarkers and crayons\nDoilies or other embellishments</string>
+    <string name="w3_description">Appliqué is a fun and easy way for kids to create art.
+        In this workshop, kids will learn how to cut out shapes from paper or fabric and glue them onto a background to create a picture.
+        They will also get to use their own creativity to come up with their own unique designs.</string>
+
+    <string name="w4_materials">Acrylic paint, watercolor paint or oil paint\nPaint brushes\nCanvas or paper\nEasel\nApron or old clothes</string>
+    <string name="w4_description">Whether you are a beginner or experienced painter,
+        this workshop is a great way to improve your skills and learn new techniques.
+        In this workshop, you will learn about different painting mediums, such as acrylics, watercolors, and oils.
+        You will also get to work on your own painting project.</string>
+
+    <string name="w5_materials">"Clay\nWater\nPottery tools\nKiln</string>
+    <string name="w5_description">Working with clay is a great way to get your hands dirty and create something beautiful.
+        In this workshop, you will learn the basics of hand-building with clay, such as how to coil, pinch, and slab build.
+        You will also get to create your own unique piece of pottery.</string>
 
 </resources>

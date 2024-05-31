@@ -71,10 +71,11 @@ public class WorkshopInfoFragment extends DialogFragment {
             workshopImageView.setImageBitmap(imageBitmap);
 
             nameTextView.setText(name);
-            materialsTextView.setText("Materials: " + materials);
             descriptionTextView.setText(description);
-            timeTextView.setText(time + "H");
-            priceTextView.setText(price + "PLN");
+            materialsTextView.setText("Materials:\n" + materials);
+
+            timeTextView.setText("Duration: " + time + "H");
+            priceTextView.setText("Price: " + price + "PLN");
         }
 
         return view;
