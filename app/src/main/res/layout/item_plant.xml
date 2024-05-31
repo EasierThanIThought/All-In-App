@@ -32,11 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:fontFamily="@font/hindsiliguribold"
             android:paddingTop="4dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/descriptionTextView"
+            android:fontFamily="@font/hindsiliguri"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="2dp"

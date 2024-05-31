@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Workshop Name"
+            android:fontFamily="@font/hindsiliguribold"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Description"
+            android:fontFamily="@font/hindsiliguri"
             android:textSize="16sp" />
 
         <TextView
@@ -40,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Materials"
+            android:fontFamily="@font/hindsiliguri"
             android:textSize="16sp" />
 
         <TextView
@@ -48,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Time"
+            android:fontFamily="@font/hindsiliguri"
             android:textSize="16sp" />
 
         <TextView
@@ -56,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Price"
+            android:fontFamily="@font/hindsiliguri"
             android:textSize="16sp" />
 
     </LinearLayout>

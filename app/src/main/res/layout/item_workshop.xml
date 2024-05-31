@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:fontFamily="@font/hindsiliguribold"
             android:paddingTop="4dp"
             android:textSize="16sp" />
 
@@ -39,6 +40,7 @@
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/hindsiliguri"
             android:paddingTop="2dp"
             android:textSize="14sp" />
 

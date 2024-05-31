@@ -16,7 +16,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,6 @@ import com.example.allin.models.Workshop;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import android.content.res.Configuration;
@@ -86,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPicture);
         List<MainPicture> pictureList = new ArrayList<>();
-
 
 
         dbHelper = new DBHelper(this);
